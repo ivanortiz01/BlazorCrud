@@ -1,5 +1,6 @@
 # BlazorCrud
-This repository has a prof of concepts of blazor app and web api with net core
+
+This repository has a prof of concepts of blazor app and web api with net core using cors policy
 
 
 Create Table to CRUD Example
