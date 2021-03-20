@@ -1,0 +1,46 @@
+﻿@page "/beers"
+@using System.Net.Http
+@using System.Net.Http.Json
+@using WebApp.Data
+@inject HttpClient http
+
+<h3>Beers</h3>
+
+<div class="row">
+    <div class="col-12 text-right">
+        <a href="beerform">Nuevo</a>
+    </div>
+</div>
+
+<table class="table">
+    <tr>
+        <td>Id</td>
+        <td>Nombre</td>
+        <td>Marca</td>
+        <td></td>
+    </tr>
+    @if (response != null && response.data != null)
+    {
+        @foreach (var item in response.data)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Maker</td>
+                <td>
+                    <a href="/beerform/@item.Id">Editar</a>
+                    <a href="/deletebeer/@item.Id">Eliminar</a>
+                </td>
+            </tr>
+        }
+    }
+</table>
+
+@code {
+    public string url = "/api/Beers";
+
+    public Response<List<Beer>> response = new Response<List<Beer>>();
+
+    protected override async Task OnInitializedAsync() =>
+        response = await http.GetFromJsonAsync<Response<List<Beer>>>(url);
+}
